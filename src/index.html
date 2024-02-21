@@ -1,0 +1,31 @@
+<h2>Listagem de Clientes</h2>
+
+<input type="text" placeholder="Filtrar por Nome Cliente" [(ngModel)]="filtroNome">
+<input type="text" placeholder="Filtrar por CPF" [(ngModel)]="filtroCPF">
+<input type="text" placeholder="Filtrar por Data Nascimento" [(ngModel)]="filtroDataNascimento">
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome Cliente</th>
+      <th>CPF</th>
+      <th>Data Cadastro</th>
+      <th>Renda Mensal</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of clientes | filtro: filtroNome: filtroCPF: filtroDataNascimento | paginate: { itemsPerPage: itensPorPagina, currentPage: paginaAtual }">
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.cpf }}</td>
+      <td>{{ cliente.dataCadastro }}</td>
+      <td>{{ cliente.rendaMensal }}</td>
+      <td>
+        <button (click)="removerCliente(cliente.id)">Remover</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<pagination-controls (pageChange)="paginaAtual = $event"></pagination-controls>
+
